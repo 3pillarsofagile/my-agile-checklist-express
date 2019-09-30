@@ -9,10 +9,7 @@ const userSchema = new Schema({
     unique: true,
     lowercase: true,
     trim: true,
-    minlength: 3,
-    validate: (value) => {
-      return validator.isEmail(value)
-    }
+    minlength: 3
   },
   password: {type: String, required: true},
   checklist: {type: Array}
