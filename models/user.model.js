@@ -7,9 +7,15 @@ const userSchema = new Schema({
     type: String,
     required: true,
     unique: true,
+    lowercase: true,
     trim: true,
-    minlength: 3
+    minlength: 3,
+    validate: (value) => {
+      return validator.isEmail(value)
+    }
   },
+  password: {type: String, required: true},
+  checklist: {type: Array}
 }, {
   timestamps: true,
 });
