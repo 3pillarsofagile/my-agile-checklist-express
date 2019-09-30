@@ -8,7 +8,7 @@ const HOST = '0.0.0.0';
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect('mongodb+srv://root:qwertymnb098@cluster0-oqd8z.mongodb.net/test?retryWrites=true&w=majority', { useNewUrlParser: true });
+mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true });
 const connection = mongoose.connection;
 
 connection.once('open', function() {
