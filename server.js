@@ -23,83 +23,32 @@ connection.once('open', function() {
     });
 })
 
-app.get('/api/user/:username/kode-rahasia/:password', function (req, res) {
-    User.findOne({
-        username: req.params.username,
-        password: req.params.password
-    }).exec(function (err, user){
-        if (err) return handleError(err);
-        // Prints "Space Ghost is a talk show host."
-        console.log(user.checklist);
-    })
-});
+const usersRouter = require('./routes/users');
 
-
-app.post('/api/user/:username/kode-rahasia/:password', function (req, res) {
-    user1 = new User({
-        username: req.params.username,
-        password: req.params.password,
-        checklist: []
-    })
-    user1.save(function(error) {
-        console.log("new user has registered");
-        if (error) {
-            console.error(error);
-        }
-    });
-    /*
-    res.json({
-        status: "ets",
-        message: 'Welcome to RESTHub crafted with love!',
-        tes: "cuk"
-    });*/
-});
+app.use('/api/users', usersRouter);
 
 app.post('/api/practice-update/:username/kode-rahasia/:password', function (req, res) {
 
-    User.findOne({
+    User.findOneAndUpdate(
+    {
         username: req.params.username,
         password: req.params.password
-    }).exec(function (err, user){
-        if (err) return handleError(err);
-        user.checklist = [4, 5, 6, [1 , 2]];
-        user.save(function(error) {
-            console.log("the user has been updated");
-            if (error) {
-                console.error(error);
-            }
-        });
-        console.log(user);
+    }, 
+    {
+        checklist: [8, 9, 6, [1 , 2]]
+    },
+    {
+        new: true,              // return updated doc
+        runValidators: true     // validate before update
     })
-
-/*
-    User.update({
-        username: req.params.username,
-        password: req.params.password
-    }, {
-        $set: { checklist: [4, 5, 6, [1 , 2]] }
-    }, {
-        upsert: true
-    }, function (err, user){
-        if (err) return handleError(err);
-        console.log("changed")
+    .then(doc => {
+        console.log(doc)
     })
-     User.findOne({
-        username: req.params.username,
-        password: req.params.password
-    }).exec(function (err, user){
-        if (err) return handleError(err);
-        // Prints "Space Ghost is a talk show host."
-        user.updateOne({
-            checklist: [4, 5, 6, [1 , 2]]
-        })
-        console.log(user.checklist);
-        user.save();
-        console.log(user.checklist);
-    }) */
+    .catch(err => {
+        console.error(err)
+    })
         
 });
     
-
 app.listen(PORT, HOST);
 console.log(`Running on http://${HOST}:${PORT}`);
