@@ -18,7 +18,7 @@ router.route('/add').post((req, res) => {
   const newUser = new User({
         username: req.body.username,
         secretcode: req.body.secretcode,
-        checklist: []
+        checklist: req.body.checklist
     });
   
     console.log(newUser);
