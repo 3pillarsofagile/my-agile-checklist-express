@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const practiceSchema = new Schema({
-  id: { type: String, required: true },
+  slug: { type: String, required: true, unique: true },
   title: { type: String, required: true },
   description: { type: String },
   if_yes_advice: { type: String, required: true },
