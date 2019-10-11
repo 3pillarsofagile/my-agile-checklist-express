@@ -43,8 +43,7 @@ router.route('/enter').post((req, res) => {
 
 router.route('/checklist-update').post((req, res) => {
 
-    console.log(req.body);
-    /*
+    
     User.findOneAndUpdate(
     {
         username: req.body.user.username,
@@ -63,7 +62,7 @@ router.route('/checklist-update').post((req, res) => {
         .catch(err => {
             console.error(err)
         })
-   */     
+   
 });
 
 module.exports = router;
