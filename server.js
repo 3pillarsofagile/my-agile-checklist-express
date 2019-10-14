@@ -36,7 +36,10 @@ app.post('/userid/:id', (req, res) => {
         all_practices = data;
         User.findById(req.params.id)
         .then((doc) => {
-            res.json({practices: all_practices, user: doc, checklist: doc.checklist})
+            res.json({
+                practices: all_practices,
+                user: doc,
+                checklist: doc.checklist})
         })
         .catch(err => res.status(400).json('Error @ get user by id, ' + err));
     })
@@ -55,25 +58,74 @@ app.get('/populate-practices', (req, res) => {
     .then(() => {       // lalu isi dengan data berikut
         Practice.create([ 
             new Practice({
+                slug : "fr",
+                title : "Apakah rencana jangka panjang produk bisa berubah drastis akibat informasi baru dari pengguna (termasuk ide fitur dari internal yang sudah divalidasi pengguna",
+                description: "",
+                if_yes_advice: "",
+                if_no_advice: ""
+            }),
+            new Practice({
                 slug : "epm",
                 title: "Apakah pihak (atau pihak-pihak) yang berkuasa menentukan fitur-fitur apa saja yang akan dikembangkan*, rutin berkomunikasi langsung dengan tim pengembang?",
-                description: "*) Selanjutnya disebut Product Manager.",
-                if_yes_advice: "Bagus! Tingkatkan intensitas & kualitas pertemuan Product Manager dengan tim pengembang. Tingkatkan juga transparansi dari kedua-belah pihak, sedemikian sehingga 1) Product Manager makin menghargai estimasi lama waktu pengerjaan dari tim pengembang, dan 2) tim pengembang memahami alasan dibalik arahan fitur-fitur dari Product Manager.",
-                if_no_advice: "Produk tidak akan bisa bergerak tangkas melayani pengguna jika mereka &mdash; yang memberikan pekerjaan & yang mengerjakan &mdash; tidak bertemu langsung. Kenapa? Karena <em>trust</em> tidak terbangun. Instruksi pekerjaan dari Product Manager jadi diiringi dengan ekspektasi lama pengerjaan yang sempit &mdash; karena takut tim pengembang tidak berkerja optimal. Tim pengembang sendiri kecewa karena seperti dipaksa lembur terus-terusan & karena tidak ada penjelasan atas permintaan-permintaan fitur yang aneh bin mendadak. Ini adalah fenomena wajar di Waterfall &mdash; tidak terlalu masalah karena rencana pekerjaan relatif bisa dikunci di awal. Di organisasi yang mengaku menggunakan bingkai kerja agile, fenomena ini disebut dengan istilah <em>proxy Product Manager</em>. 'Proxy' karena sosok Product Manager yang rutin berkomunikasi dengan tim pengembang tidak punya otonomi untuk menentukan fitur-fitur apa yang akan dibuat. Beliau harus terlebih dahulu meminta persetujuan atasan (baca: Product Manager yang sebenarnya tapi tidak mau terjun langsung)."
+                description: "Rutin di sini bisa di level harian jika diperlukan. *) Selanjutnya disebut Product Manager.",
+                if_yes_advice: "Bagus! Tingkatkan intensitas & kualitas pertemuan Product Manager dengan tim pengembang. Tingkatkan juga transparansi dari kedua-belah pihak, sedemikian sehingga: <ol><li>Product Manager makin menghargai estimasi lama waktu pengerjaan dari tim pengembang</li><li>tim pengembang memahami alasan dibalik arahan fitur-fitur dari Product Manager</li></ol> <p>Cek praktik-praktik transparansi organisasi di <a href='https://3pillarsofagile.github.io/1-fast'>Pilar 1</a> & <a href='https://3pillarsofagile.github.io/2-flexible'>Pilar 2</a>, juga praktik <a href='https://3pillarsofagile.github.io/paper-prototyping'>Paper Prototyping</a>.</p>",
+                if_no_advice: "<p>Produk tidak akan bisa bergerak tangkas melayani pengguna jika mereka &mdash; yang memberikan pekerjaan & yang mengerjakan &mdash; tidak bertemu langsung. Kenapa? Karena <em>trust</em> tidak terbangun.</p><p>Jika tidak ada <em>trust</em>, instruksi pekerjaan dari Product Manager jadi diiringi dengan ekspektasi lama pengerjaan yang sempit &mdash; karena takut tim pengembang banyak santai menunda pekerjaan. Tim pengembang sendiri kecewa karena seperti dipaksa lembur terus-terusan & karena tidak ada penjelasan atas permintaan-permintaan fitur yang aneh bin mendadak &mdash; fenomena yang cukup wajar di Waterfall karena rencana fitur dikunci di awal. Bagi proses kerja agile, yang rencana fiturnya bisa berubah drastis, jelas jadi masalah.</p> <p>Ini biasa disebabkan oleh fenomena <em>proxy Product Manager</em>. 'Proxy' karena sosok Product Manager yang rutin berkomunikasi dengan tim pengembang tidak punya otonomi untuk menentukan fitur-fitur apa yang akan dibuat. Beliau harus terlebih dahulu meminta persetujuan atasan &mdash; alias Product Manager yang sebenarnya tapi tidak mau terjun langsung ke pengguna dan tim pengambang.</p> <p>Akhir kata, solusinya jelas: pastikan ada Product Manager yang sebenarnya (baca: yang memimpin riset pengguna & punya otoritas untuk menentukan fitur-fitur serta deal-deal dengan pihak luar). Buat yang bersangkutan berkomunikasi langsung dengan tim pengembang secara intens.</p>"
             }),
             new Practice({
                 slug : "mvp",
-                title: "Apakah menurut kamu, rilis pertama dari produk (atau fitur besar) sering kali sudah tidak bisa dipercepat lagi?",
-                description: "Dengan kata lain, apakah menurut kamu, target-target rilis pertama, biasanya sudah paling kecil (biasa disebut MVP &mdash; minimum viable product)?",
-                if_yes_advice: "Bagus! Pastikan rilis-rilis setelah MVP juga cepat & sering. Tingkatkan kualitas dengan mempelajari teknik-teknik riset pengguna. Sehingga selain cepat rilis, anda jadi juga tepat rilis (baca: peluang fitur yang dirilis disukai pengguna jadi makin tinggi).",
-                if_no_advice: "Rilis pertama yang lambat meningkatkan resiko bangkrut-karena-membuat-fitur-yang-salah. Ini amat penting, apalagi di era kompetisi digital saat ini. Edukasi Product Manager & pimpinan-pimpinan terkait tentang pentingnya MVP."
+                title: "Apakah menurut kamu, target-target rilis pertama produk (atau sebuah fitur besar), sering kali sudah yang paling kecil ukurannya*?",
+                description: "*) Biasa disebut MVP &mdash; minimum viable product",
+                if_yes_advice: "<p>Bagus! Pastikan rilis-rilis setelah MVP juga cepat & sering. Tingkatkan kualitas dengan mempelajari teknik-teknik riset pengguna. Sehingga selain cepat rilis, anda jadi juga tepat rilis (baca: peluang merilis fitur yang disukai pengguna jadi makin tinggi).</p> <p>Cari teknik meriset pengguna di praktik-praktik kompetensi <a href='https://3pillarsofagile.github.io/1-fast'>Pilar 1</a> & <a href='https://3pillarsofagile.github.io/2-flexible'>Pilar 2</a>.</p>",
+                if_no_advice: "<p>Rilis pertama yang lambat meningkatkan resiko bangkrut-karena-membuat-fitur-yang-salah. Ini amat penting, apalagi di era kompetisi digital saat ini. Edukasi Product Manager & pimpinan-pimpinan terkait tentang pentingnya MVP.</p> <p>Baca MVP & studi kasus orang lain terhadap di <a href='https://3pillarsofagile.github.io/mvp'>sini</a>.</p>"
             }),
             new Practice({
                 slug : "for",
                 title: "Setelah rilis yang pertama tersebut, apakah biasanya dilanjutkan dengan rilis-rilis yang cepat & sering?",
                 description: "Umumnya lebih dari dua minggu sekali terhitung lambat. Meski industri tertentu punya standar berbeda.",
-                if_yes_advice: "Bagus! Cepat rilis belum tentu tangkas, tapi lambat sudah pasti tidak tangkas. Tingkatkan dengan mempercepat lagi 'lead time' &mdash; yaitu waktu yang dihitung dari tersebutnya ide fitur (baik dari pengguna maupun dari internal), sampai ide tersebut jadi nyata & digunakan pengguna. Lead time adalah metrik yang lebih baik untuk mengukur kecepatan, karena juga menghitung lama proses pengambilan keputusan dan pematangan spesifikasi fitur.",
-                if_no_advice: "Kompetisi bukanlah alasan utama harus rilis cepat & sering. Alasan utamanya adalah ukuran asumsi. Logikanya, makin lambat dan jarang rilis, makin besar asumsi saat rilis. Pekerjaan produksi software tidaklah sama dengan produksi pabrik. Setiap fitur baru adalah asumsi, sementara barang produksi pabrik bukan. Makin besar asumsi, makin besar peluang salahnya, dan bahkan makin sulit mencari penyebab kesalahan &mdash; karena varibel yang bermain jadi makin banyak. Jika kita segera memperkecil asumsi dan merilisnya  segera langsung ke pengguna (baca: memvalidasinya), kita akan segera diarahkan ke bentuk software yang paling membahagiakan pengguna dan menghasilkan uang buat kita."
+                if_yes_advice: "<p>Bagus! Cepat rilis belum tentu tangkas, tapi lambat sudah pasti tidak tangkas.</p> <p>Tingkatkan dengan mempercepat lagi 'lead time' &mdash; yaitu waktu yang dihitung dari tersebutnya ide fitur (baik dari pengguna maupun dari internal), sampai ide tersebut jadi nyata & digunakan pengguna. Lead time adalah metrik yang lebih baik untuk mengukur kecepatan, karena juga menghitung lama proses pengambilan keputusan dan pematangan spesifikasi fitur. Praktik seperti <a href='https://3pillarsofagile.github.io/paper-prototyping'>Paper Prototyping</a> & <a href='https://3pillarsofagile.github.io/automated-acceptance-testing'>Acceptance Testing yang otomatis</a> bisa meningkatkan lead time dari sisi ini.</p><p></p>",
+                if_no_advice: "<p>Kompetisi bukanlah alasan utama harus rilis cepat & sering. Alasan utamanya adalah ukuran asumsi. Logikanya, makin lambat dan jarang rilis, makin besar asumsi saat rilis. Pekerjaan produksi software tidaklah sama dengan produksi pabrik. Setiap fitur baru adalah asumsi, sementara barang produksi pabrik bukan. Makin besar asumsi, makin besar peluang salahnya, dan bahkan makin sulit mencari penyebab kesalahan &mdash; karena varibel yang bermain jadi makin banyak. Jika kita segera memperkecil asumsi dan merilisnya  segera langsung ke pengguna (baca: memvalidasinya), kita akan segera diarahkan ke bentuk software yang paling membahagiakan pengguna dan menghasilkan uang buat kita."
+            }),
+            new Practice({
+                slug : "ed",
+                title : "Apakah Product Manager menyediakan data-data empirik (baik langsung dari pengguna maupun sumber lain) sebagai dasar alasan atas fitur baru yang dia minta?",
+                description: "",
+                if_yes_advice: "",
+                if_no_advice: ""
+            }),
+            new Practice({
+                slug : "rpm",
+                title : "Apakah ada retro rutin terkait cara Product Manager (beserta timnya) dalam meriset pengguna?",
+                description: "",
+                if_yes_advice: "",
+                if_no_advice: ""
+            }),
+            new Practice({
+                slug : "td",
+                title : "Apakah tim pengembang cukup transparan sehingga pihak lain (Product Manager, eksekutif, pemilik, dll) bisa menilai apakah tim pengembang memberikan etos kerja & waktu kerja yang sesuai gaji mereka?",
+                description: "",
+                if_yes_advice: "",
+                if_no_advice: ""
+            }),
+            new Practice({
+                slug : "rd",
+                title : "Apakah  ada retro rutin terkait cara tim pengembang mengembangkan software?",
+                description: "",
+                if_yes_advice: "",
+                if_no_advice: ""
+            }),
+            new Practice({
+                slug : "enr",
+                title : "Apakah tim pengembang dilobi untuk 'berkerja lebih cepat' / 'mengambil kerjaan lebih banyak' saat mengestimasi pekerjaan?",
+                description: "",
+                if_yes_advice: "",
+                if_no_advice: ""
+            }),
+            new Practice({
+                slug : "dod",
+                title : "Apakah tim pengembang punya standar kualitas kerja tertentu, sehingga bug jadi minim dan kode mereka tetap terjaga untuk mudah dipahami?",
+                description: "",
+                if_yes_advice: "",
+                if_no_advice: ""
             })
         ]).then((data) => res.json(data))
         .catch(err => res.status(400).json('Error: ' + err));
