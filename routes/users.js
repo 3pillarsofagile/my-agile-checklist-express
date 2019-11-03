@@ -6,15 +6,41 @@ const bcrypt = require('bcrypt');
 
 app.use(express.json());
 
-router.route('/').get((req, res) => {
+router.route('/register').post((req, res) => {
     
-  User.find()
-    .then(users => res.json(users))
-    .catch(err => res.status(400).json('Error: ' + err));
+    if(!req.body.username.match(/([a-zA-Z0-9]+)([\.{1}])?([a-zA-Z0-9]+)\@gmail([\.])com/g)){
+        res.status(400).json('Error: alamat email bukan gmail.')
+    }
 
+    User.findOne( // find the user with the credentials 
+    {
+        username: req.body.username
+    })
+        .then(doc => {
+            if(doc){     // if exist, return it
+                res.status(400).json('Error: username sudah ada')
+            }else{       // if doesn't exist, create it
+
+                bcrypt.hash(req.body.secretcode, 10, function(err, hash) {
+                    const newUser = new User({
+                        username: req.body.username,
+                        secretcode: hash,
+                        checklist: []
+                    });
+                
+                    newUser.save()
+                        .then((data) => res.json(data))
+                        .catch(err => res.status(400).json('Error: ' + err));
+                });
+
+            }
+        })
+        .catch(err => {
+            res.status(400).json('Error: ' + err)
+        })
 });
 
-router.route('/enter').post((req, res) => {
+router.route('/login').post((req, res) => {
 
     User.findOne( // find the user with the credentials 
     {
@@ -32,17 +58,7 @@ router.route('/enter').post((req, res) => {
                   });
             }else{       // if doesn't exist, create it
 
-                bcrypt.hash(req.body.secretcode, 10, function(err, hash) {
-                    const newUser = new User({
-                        username: req.body.username,
-                        secretcode: hash,
-                        checklist: []
-                    });
-                
-                    newUser.save()
-                        .then((data) => res.json(data))
-                        .catch(err => res.status(400).json('Error: ' + err));
-                });
+            res.status(400).json('Error: username '+req.body.username+' tidak ada')
 
             }
         })

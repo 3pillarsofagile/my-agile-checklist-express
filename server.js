@@ -29,6 +29,10 @@ const usersRouter = require('./routes/users');
 
 app.use('/api/users', usersRouter);
 
+app.post('/api', (req, res) => {
+    res.json("success")
+  });
+
 app.post('/userid/:id', (req, res) => {
     let all_practices = [];
     Practice.find()
@@ -95,27 +99,35 @@ app.get('/populate-practices', (req, res) => {
                 slug : "ed",
                 title : "Apakah Product Manager menyediakan data-data empirik (baik langsung dari pengguna maupun sumber lain) sebagai dasar alasan atas fitur baru yang dia minta?",
                 description: "",
-                if_yes_advice: "",
-                if_no_advice: ""
+                if_yes_advice: "Bagus! Tingkatkan terus kualitas eksekusi riset.",
+                if_no_advice: "Edukasi Product Nanager bahwa mengembangkan software pada hakikatnya adalah kegiatan eksplorasi alias R&D alias eksperimen. Berbeda dengan membangun rumah, jembatan, atau menyelenggarakan pesta pernikahan."
             }),
             new Practice({
                 order: 6,
-                slug : "rpm",
-                title : "Apakah ada retro rutin terkait cara Product Manager (beserta timnya) dalam meriset pengguna?",
-                description: "jelasin definisi retro",
-                if_yes_advice: "",
-                if_no_advice: ""
+                slug : "pmt",
+                title : "Apakah Product Manager dan tim beliau cukup transparan dalam berkerja (termasuk apakah antrian fitur bisa dilihat siapapun)?",
+                description: "<p>Antrian fitur di sini artinya belum (atau sedang) dikerjakan oleh tim pengembang. Lebih lanjutnya di <a href='https://3pillarsofagile.github.io/transparent-work-backlog'>Backlog</a></p>",
+                if_yes_advice: "Bagus! Pertahankan.",
+                if_no_advice: "<p>Edukasi Product Manager dan timnya, bahwa mereka sangat krusial sampai perlu transparan. Semua permintaan fitur dari pelbagai pihak bermuara ke mereka. Tidak jarang, Product Manager harus menolak permintaan pengerjaan fitur. Transparansi cara kerja mereka akan membantu pihak yang ditolak untuk menerima alasan penolakan.</p><p>Jika tidak transparan, pihak-pihak luar bisa curiga kalau Product Manager hanya subyektif dalam menentukan fitur-fitur mana saja yang akan dikerjakan tim pengembang.</p>"
             }),
             new Practice({
                 order: 7,
-                slug : "td",
-                title : "Apakah tim pengembang cukup transparan sehingga pihak lain (Product Manager, eksekutif, pemilik, dll) bisa menilai apakah tim pengembang memberikan (skill) etos kerja & waktu kerja yang sesuai gaji mereka?",
-                description: "",
-                if_yes_advice: "",
-                if_no_advice: ""
+                slug : "rpm",
+                title : "Apakah ada retro rutin terkait cara Product Manager (beserta timnya) dalam meriset pengguna?",
+                description: "Retro adalah kegiatan rutin & singkat untuk mengangkat masalah tim & membahas aksi perbaikan.",
+                if_yes_advice: "Bagus! Meski bukan eksekutor, tim pengembang juga bagus untuk ikut ke retro ini. Mereka jadi lebih bersemangat berkerja, karena paham kerja keras pihak yang memberikan mereka pekerjaan.",
+                if_no_advice: "Sering bagikan informasi berikut ke Product Manager:</p><ol><li>Komplain-komplain dari internal/eksternal terkait kualitas produk.</li><li>Inovasi-inovasi terbaru di dunia riset pengguna (<a href='https://3pillarsofagile.github.io/2-flexible'>Pilar 2 - Tiga Pilar Agile</a> atau semacam <a href='https://www.uxbooth.com/categories/design-research/'>UX Booth</a>)</li></ol><p>Sehingga beliau merasa butuh untuk rutin memperbaiki cara kerja dia dan tim.</p>"
             }),
             new Practice({
                 order: 8,
+                slug : "td",
+                title : "Apakah tim pengembang cukup transparan sehingga pihak lain (Product Manager, eksekutif, pemilik, dll) bisa menilai apakah tim pengembang memberikan (skill) etos kerja & waktu kerja yang sesuai gaji mereka?",
+                description: "",
+                if_yes_advice: "Bagus! Lanjutkan.",
+                if_no_advice: "<p>Tidak seperti pembangunan rumah, pekerjaan pembangunan software tidak bisa dilihat oleh orang awam. Oleh karena itu, sulit untuk berempati terhadap kesulitan-kesulitan yang mereka alami.</p><p>Meski begitu, bukan berarti tidak bisa diusahakan. Baca praktik-praktik berikut <a href='https://3pillarsofagile.github.io/sprint'>Sprint</a>, <a href='https://3pillarsofagile.github.io/kanban-board-for-a-project'>Papan Kanban</a>, atau<a href='https://3pillarsofagile.github.io/checklist-on-quality'>Checklist Kualitas</a>.</p>"
+            }),
+            new Practice({
+                order: 9,
                 slug : "rd",
                 title : "Apakah  ada retro rutin terkait cara tim pengembang mengembangkan software?",
                 description: "jelasi definisi retro",
@@ -123,24 +135,29 @@ app.get('/populate-practices', (req, res) => {
                 if_no_advice: ""
             }),
             new Practice({
-                order: 9,
+                order: 10,
                 slug : "enr",
-                title : "Apakah tim pengembang dilobi untuk 'berkerja lebih cepat' / 'mengambil kerjaan lebih banyak' saat mengestimasi pekerjaan?",
+                title : "Apakah tidak ada dilobi untuk 'berkerja lebih cepat' / 'mengambil kerjaan lebih banyak', sehingga estimasi developer jadi terus makin akurat?",
                 description: "",
                 if_yes_advice: "",
                 if_no_advice: ""
             }),
             new Practice({
-                order: 10,
+                order: 11,
                 slug : "dod",
                 title : "Apakah tim pengembang punya standar kualitas kerja tertentu, sehingga bug jadi minim dan kode mereka tetap terjaga untuk mudah dipahami?",
                 description: "",
                 if_yes_advice: "",
                 if_no_advice: ""
+            }),
+            new Practice({
+                order: 12,
+                slug : "idt",
+                title : "Apakah tim pengembang diberi ruang untuk meningkatkan standar kualitas pekerjaan mereka?",
+                description: "",
+                if_yes_advice: "",
+                if_no_advice: ""
             })
-
-            // tambahin komitmen,
-
 
         ]).then((data) => res.json(data))
         .catch(err => res.status(400).json('Error: ' + err));
