@@ -69,7 +69,7 @@ app.get('/populate-practices', (req, res) => {
                 title : "Apakah rencana jangka panjang produk bisa langsung direvisi secara drastis, ketika muncul informasi baru dari pengguna?",
                 description: "Pengguna berarti semua pihak yang menikmati produk. Jika produk Z adalah API yang digunakan tim pengembang A untuk mengembangkan produk X, maka tim pengembang A serta pengguna produk X adalah pengguna produk Z.",
                 if_yes_advice: "Bagus! Produk juara adalah produk yang paling tangkas membahagiakan penggunanya. Ini adalah esensi utama dari ketangkasan. Jika sudah ada data valid dari pengguna, bahwa yang akan dikerjakan bulan depan bukanlah yang paling dibutuhkan mereka, maka menunda perubahan hanya mengurangi ketangkasan produk.",
-                if_no_advice: "Coba analisa akar penyebab perubahan. Biasanya regulasi atau resistensi beberapa pihak. Cara yang paling mudah adalah mengumpulkan data empirik dari pengguna, lalu membawanya ke depan pimpinan yang paling peduli terhadap kesuksesan produk. Jika pihak itu tidak ada, sudah saatnya Anda mencari tempat baru."
+                if_no_advice: "Coba analisa akar penyebab kenapa arah produk tidak bisa berubah. Biasanya regulasi atau resistensi beberapa pihak. Cara yang paling mudah adalah mengumpulkan data empirik dari pengguna, lalu membawanya ke depan pimpinan yang paling peduli terhadap kesuksesan produk. Jika pihak itu tidak ada, sudah saatnya Anda mencari tempat baru."
             }),
             new Practice({
                 order: ++i,
@@ -133,7 +133,7 @@ app.get('/populate-practices', (req, res) => {
                 title : "Apakah tim pengembang berkerja dengan cukup transparan, sehingga pihak lain jadi segera dapat notifikasi saat estimasi tim pengembang akan meleset & jadi bisa menilai apakah tim pengembang memberikan etos serta waktu kerja yang sesuai gaji mereka?",
                 description: "Pihak lain di sini merujuk ke Product Manager, eksekutif, pemilik, dan siapapun di luar tim pengembang.",
                 if_yes_advice: "Bagus! Lanjutkan. Ini ada hubungan dengan estimasi yang makin akurat. Baca poin di bawah. ",
-                if_no_advice: "<p>Tidak seperti pembangunan rumah, pekerjaan pembangunan software tidak bisa dilihat oleh orang awam. Oleh karena itu, sulit untuk berempati terhadap kesulitan-kesulitan yang mereka alami.</p><p>Meski begitu, bukan berarti tidak bisa dimaksimalkan transparansinya. Baca praktik-praktik berikut <a href='https://3pillarsofagile.github.io/sprint'>Sprint</a>, <a href='https://3pillarsofagile.github.io/kanban-board-for-a-project'>Papan Kanban</a>, atau<a href='https://3pillarsofagile.github.io/checklist-on-quality'>Checklist Kualitas</a>.</p>"
+                if_no_advice: "<p>Tidak seperti pembangunan rumah, pekerjaan pembangunan software tidak bisa dilihat oleh orang awam. Oleh karena itu, sulit untuk berempati terhadap kesulitan-kesulitan yang mereka alami.</p><p>Meski begitu, bukan berarti tidak bisa dimaksimalkan transparansinya. Baca praktik-praktik berikut <a href='https://3pillarsofagile.github.io/sprint'>Sprint</a>, <a href='https://3pillarsofagile.github.io/kanban-board-for-a-project'>Papan Kanban</a>, atau <a href='https://3pillarsofagile.github.io/checklist-on-quality'>Checklist Kualitas</a>.</p>"
             }),
             new Practice({
                 order: ++i,

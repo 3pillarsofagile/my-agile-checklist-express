@@ -10,6 +10,7 @@ router.route('/register').post((req, res) => {
     
     if(!req.body.username.match(/([a-zA-Z0-9]+)([\.{1}])?([a-zA-Z0-9]+)\@gmail([\.])com/g)){
         res.status(400).json('Error: alamat email bukan gmail.')
+        return;
     }
 
     User.findOne( // find the user with the credentials 
